@@ -30,7 +30,7 @@
   },
   "variables": {
     "location": "[resourceGroup().location]",
-    "storageVersion": "2016-01-01",
+    "storageVersion": "2015-06-15",
     "appServiceApiVersion": "2015-08-01",
     "storageName": "[concat(uniqueString(resourceGroup().id), 'func')]",
     "functionAppPlanName": "[concat(uniqueString(resourceGroup().id), '-func-app-plan')]",
