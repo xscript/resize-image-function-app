@@ -2,17 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "functionSku": {
+    "inputContainerName": {
       "type": "string",
-      "allowedValues": [
-        "Free",
-        "Shared",
-        "Basic",
-        "Standard"
-      ],
-      "defaultValue": "Free",
+      "defaultValue": "images-original",
       "metadata": {
-        "description": "The pricing tier for the hosting plan for Azure Function."
+        "description": "Name of the input blob container for function app."
+      }
+    },
+    "outputContainerName": {
+      "type": "string",
+      "defaultValue": "images-thumbnail",
+      "metadata": {
+        "description": "Name of the output blob container for function app."
       }
     },
     "storageType": {
@@ -131,14 +132,14 @@
                   "type": "blobTrigger",
                   "name": "inputBlob",
                   "dataType": "binary",
-                  "path": "images-original/{name}",
+                  "path": "[concat(parameters('inputContainerName'), '/{name}')]",
                   "connection": "storageConnectionString",
                   "direction": "in"
                 },
                 {
                   "type": "blob",
                   "name": "outputBlob",
-                  "path": "images-thumbnail/{name}",
+                  "path": "[concat(parameters('outputContainerName'), '/{name}')]",
                   "connection": "storageConnectionString",
                   "direction": "out"
                 }
